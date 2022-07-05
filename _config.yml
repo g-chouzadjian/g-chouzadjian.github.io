@@ -104,9 +104,9 @@ analytics:
 
 # Site Author
 author:
-  name             : "Your Name"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I am an **amazing** person."
+  name             : "Garen Chouzadjian"
+  avatar           : "/assets/images/steve_brule.jpg"
+  bio              : "For your health"
   location         : "Somewhere"
   email            :
   links:

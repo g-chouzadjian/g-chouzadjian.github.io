@@ -1,6 +1,6 @@
 ---
 title: "Basics"
-permalink: /docs/bash/basics/
+permalink: /basics/
 excerpt: "Basics"
 ---
 

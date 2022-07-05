@@ -1,7 +1,7 @@
 ---
-title: "Bash"
-permalink: /docs/bash/
-excerpt: "Bash hacks/tips."
+title: "Basics"
+permalink: /docs/bash/basics/
+excerpt: "Basics"
 ---
 
 ## Shebang

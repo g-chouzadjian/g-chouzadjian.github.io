@@ -2,6 +2,7 @@
 title: "Basics"
 permalink: /basics/
 excerpt: "Basics"
+toc: true
 ---
 
 ## Shebang

@@ -1,11 +1,9 @@
+main:
+  - title: "Basics"
+  url: /docs/bash/basics/
+
 docs:
   - title: Bash
     children:
       - title: "Basics"
         url: /docs/bash/basics/
-      - title: "Structure"
-        url: /docs/structure/
-      - title: "Installation"
-        url: /docs/installation/
-      - title: "Upgrading"
-        url: /docs/upgrading/

@@ -1,15 +1,13 @@
 ---
-title: "Bash"
-permalink: /bash/
+title: "Basics"
+permalink: /bash/basics/
 excerpt: "Bash"
 toc: true
 sidebar:
   nav: "docs"
 ---
 
-## Basics
-
-### Shebang
+## Shebang
 
 `#!` is known as a **she** (sharp) **bang** (slang for exclamation point). You wanna start out every shell script with a shebang and then a path to the desired interpreter.
 
@@ -32,7 +30,7 @@ If you do not provide a shebang for your script then the commands will be execut
 
 Always use a shebang in your shell scripts. You never know what shell another person may be using when they run it so to be safe, be explicit. 
 
-### Comments
+## Comments
 
 Use the `#` sign to signify a comment.
 
@@ -40,7 +38,7 @@ Use the `#` sign to signify a comment.
 
 Comment out the next line after the shebang and give a quick summary of the purpose of your shell script.
 
-### File Permissions
+## File Permissions
 
 You can use `ls -l` to check the file permissions.
 
@@ -52,7 +50,7 @@ You can adjust file permissions with `chmod`.
 
 A good default file permission is `755` (RWX, RX, RX).
 
-### Execution
+## Execution
 
 To execute a shell script in the current directory use the current directory symbol `.` combined with the directory separator `\`:
 
@@ -66,7 +64,7 @@ The above command is equivalent to inputing the fully qualified path:
 /fully/qualified/path/to/file.sh
 ```
 
-### Builtins
+## Builtins
 
 Builtins are commands or functions which are built into the shell itself, they do not require any external programs to execute. Examples of bash builtins are: `echo`, `logout` etc.
 
@@ -94,7 +92,7 @@ unlike external executables which rely on `man`.
 
 Whenever possible, use shell builtins because they are significantly faster than loading/running external programs. It is also more portable to use builtins b/c they do not rely on a system path.
 
-### Pagination
+## Pagination
 
 Sometimes when you call help on a command, the resulting text can be overwhelming. To make things easier, pipe the output to the `less` command. 
 
@@ -112,7 +110,7 @@ The `vim` keybindings apply to `less` so you can use `/<search-term>` to quickly
 
 To reverse search use `?<search-term>`.
 
-### Variables
+## Variables
 
 Bash doesn't really have types; variables are character strings. To assign a value to a variable use the assignment operator `=`.
 
@@ -154,7 +152,7 @@ OTHER_WORD="${WORD}bar"
 # foobar
 ```
 
-#### Special Variables
+### Special Variables
 
 You can find special bash variables by viewing the bash man page.
 
@@ -174,7 +172,7 @@ id -un
 
 Which is also equivalent to the command `whoami`.
 
-### Command Substitution
+## Command Substitution
 
 To store the result of a command in a variable, use the following syntax:
 
@@ -193,7 +191,7 @@ VARIABLE=`<list_of_commands>`
 USER_NAME=$(id -un)
 ```
 
-### If Statements
+## If Statements
 
 The syntax for if statements is as follows:
 
@@ -217,11 +215,11 @@ else
 fi
 ```
 
-####  Command Separator
+###  Command Separator
 
 The `;` is the command separator symbol and can be used interchangeably with a newline.
 
-#### [[
+### [[
 
 The `[[` symbol is used to evaluate conditional expressions of the kind `[[ expression ]]`. It exits with a value of `0` for true and `1` for false. For a list of valid operators use the `test` builtin.
 
@@ -232,7 +230,7 @@ help test
 ***Tip***
 The `[` is analogous to `[[` but is the old syntax.
 
-#### String operators
+### String operators
 
 ***Example***
 
@@ -254,13 +252,13 @@ The `=` operator has different meaning in different contexts. As a string operat
 
 To perform pattern matching use the `==` operator. 
 
-#### Exit Status
+### Exit Status
 
 You can exit a script at any point with the `exit` command. By convention when a script executes successfully, it exits with a status code of `0`. To indicate an error we choose a non-zero exit status.
 
 You can check the error codes of certain programs by seeing the **man page**. 
 
-#### Special Parameters
+### Special Parameters
 
 `?` - This parameter expands to the exit status of the most recently executed script.
 
@@ -279,9 +277,9 @@ fi
 
 To see more special parameters, see the bash `man` page and search `/Special Parameters` 
 
-### Stdin, Stdout and Stderr
+## Stdin, Stdout and Stderr
 
-#### `read` builtin
+### `read` builtin
 
 By default, standard input comes from the keyboard. It can come from other locations, such as from a pipeline.
 
@@ -307,25 +305,25 @@ useradd  -c "${COMMENT}"
 
 Standard output and Standard Error are displayed to the screen.
 
-### Pipelining
+## Pipelining
 
 When you use pipes in commands, you're saying you want the stdout of one command to be the stdin to the next command. If the first command has an error on  output, that does not get sent to the stdoutput, it goes to  stderr  and does not get fed to the next command.
 
-### Users
+## Users
 
-#### `useradd`
+### `useradd`
 
 This command can be used to create a new user. Note the term LOGIN and USERNAME are interchangeable in linux parlance.
 
 Typically, usernames are 8 character's or less by convention. They are also lowercase.
 
-##### Useful Options
+### Useful Options
 
 The `-m` option creates the users home directory if it doesn't already exist.
 
 The `-c` option allows you to write a comment for that particular LOGIN.
 
-#### `su`
+### `su`
 
 This command is used to **switch user**.
 
@@ -345,7 +343,7 @@ su - foobar
 
 ```
 
-#### `passwd`
+### `passwd`
 
 This command sets the password for a particular user. 
 
@@ -354,7 +352,7 @@ You cannot change the password of another users account unless you are the root 
 
 The default mode of `passwd` is interactive. Therefore when you enter it, it will prompt you for input. 
 
-##### Useful options
+### Useful options
 
 `--stdin`: gets input from stdin.
 
@@ -378,7 +376,7 @@ passwd -e ${USER_NAME}
 
 `ps -ef`
 
-### Source vs. Execute
+## Source vs. Execute
 
 See [link](https://superuser.com/questions/176783/what-is-the-difference-between-executing-a-bash-script-vs-sourcing-it#:~:text=7%20Answers&text=Sourcing%20a%20script%20will%20run,in%20your%20currently%20running%20shell.)
 
@@ -388,7 +386,7 @@ See [link](https://superuser.com/questions/176783/what-is-the-difference-between
 
 Use source if you want the script to change the environment in your currently running shell. use execute otherwise.
 
-### Useful Binaries
+## Useful Binaries
 
 `dirname` - Print NAME with its trailing /component removed; if NAME contains no /'s, output '.' (meaning the current directory).
 

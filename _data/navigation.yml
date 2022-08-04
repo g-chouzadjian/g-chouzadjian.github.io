@@ -1,11 +1,11 @@
 main:
   - title: "Bash"
-    url: /bash/
+    url: /bash/basics/
 
 docs:
   - title: Bash
     children:
       - title: "Basics"
-        url: /bash/
+        url: /bash/basics/
       - title: "Tips"
-        url: /tips/
+        url: /bash/tips/

@@ -1,9 +1,11 @@
 ---
-title: "Basics"
-permalink: /basics/
-excerpt: "Basics"
+title: "Bash"
+permalink: /bash/
+excerpt: "Bash"
 toc: true
 ---
+
+# Basics
 
 ## Shebang
 

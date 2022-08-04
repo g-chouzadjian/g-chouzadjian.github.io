@@ -3,6 +3,8 @@ title: "Bash"
 permalink: /bash/
 excerpt: "Bash"
 toc: true
+sidebar:
+  nav: "docs"
 ---
 
 ## Basics

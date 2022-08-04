@@ -1,6 +1,8 @@
 main:
   - title: "Bash"
     url: /bash/basics/
+  - title: "Golang"
+    url: /golang/basics/
 
 docs:
   - title: Bash

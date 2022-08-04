@@ -1,9 +1,6 @@
 main:
   - title: "Bash"
     url: /bash/
-
-# docs:
-#   - title: Bash
-#     children:
-#       - title: "Basics"
-#         url: /basics/
+    children:
+      - title: "Tips"
+        url: /tips/

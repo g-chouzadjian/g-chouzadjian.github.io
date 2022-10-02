@@ -3,6 +3,8 @@ main:
     url: /bash/basics/
   - title: "TDD"
     url: /TDD/
+  - title: "Golang"
+    url: /golang/basics/
 
 docs:
   - title: Bash
@@ -11,3 +13,9 @@ docs:
         url: /bash/basics/
       - title: "Tips"
         url: /bash/tips/
+  - title: Golang
+    children:
+      - title: "Basics"
+        url: /golang/basics/
+      - title: "Design Patterns"
+        url: /golang/patterns/

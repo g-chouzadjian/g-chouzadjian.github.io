@@ -30,7 +30,7 @@ Or you can use an [open-source action](https://github.com/marketplace/actions/re
 - name: trigger
     uses: peter-evans/repository-dispatch@v2
     with:
-      token: ${{ secrets.REPO_ACCESS_TOKEN }}
+      token: $\{\{ secrets.REPO_ACCESS_TOKEN \}\}
       repository: anzx-platform-security-poc/reusable-workflows
       event-type: trigger-event
       client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'

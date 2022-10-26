@@ -13,6 +13,8 @@ docs:
         url: /bash/basics/
       - title: "Tips"
         url: /bash/tips/
+      - title: "jq"
+        url: /bash/jq/
   - title: Golang
     children:
       - title: "Basics"

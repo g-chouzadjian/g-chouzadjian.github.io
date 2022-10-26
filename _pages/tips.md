@@ -9,7 +9,7 @@ sidebar:
 
 ### How to load a template file and populate with vars
 
-```
+```bash
 eval "cat << EOF > ${OUT_FILE}
   $(<"${IN_FILE}")
   " 2> /dev/null
@@ -17,4 +17,6 @@ eval "cat << EOF > ${OUT_FILE}
 
 ### Sorting unique values across two files
 
+```bash
 cat foo.txt bar.txt | sort -u > out.txt
+```

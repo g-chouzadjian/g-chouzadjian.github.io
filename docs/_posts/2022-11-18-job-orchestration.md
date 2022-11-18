@@ -19,7 +19,7 @@ To cover the first dependency we can use the `jobs.<job_id>.needs` syntax:
 
 To cover the files changed dependency, we're going to use a combination of git diff and conditional job execution, see the solution below:
 
-
+{% raw %}
 ```yaml
 name: blog
 on:
@@ -36,7 +36,7 @@ jobs:
     # use the github context to get the HEAD sha and assign to an 
     # env var at the job level so it can be used in subsequent steps.
     env:
-      after: $'&#123;' github.sha '&#123;'
+      after: ${{ github.sha }}
 
     # use job outputs to use variables between jobs.
     outputs:
@@ -70,6 +70,7 @@ jobs:
     if: contains(needs.get-changes-files.outputs.changed_files, <desired-file/s>)
     ...
 ```
+{% endraw %}
 
 While it's a bit convoluted, the above workflow displays how you can cover multiple depdencies for job execution using a combination of inbuilt workflow features and bash/git hacks. The following GHA features were used in the above solution:
 - [github context](https://docs.github.com/en/actions/learn-github-actions/contexts#github-context)

@@ -36,7 +36,7 @@ jobs:
     # use the github context to get the HEAD sha and assign to an 
     # env var at the job level so it can be used in subsequent steps.
     env:
-      after: ${{ github.sha }}
+      after: $&#123; github.sha &#123;
 
     # use job outputs to use variables between jobs.
     outputs:

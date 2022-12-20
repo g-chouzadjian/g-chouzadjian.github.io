@@ -5,6 +5,8 @@ main:
     url: /TDD/
   - title: "Golang"
     url: /golang/basics/
+  - title: "Algorithms"
+    url: /algo/bigo/
 
 docs:
   - title: Bash
@@ -21,3 +23,7 @@ docs:
         url: /golang/basics/
       - title: "Design Patterns"
         url: /golang/patterns/
+  - title: Algorithms
+    children:
+      - title: "Big O"
+        url: /algo/bigo/

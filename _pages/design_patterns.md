@@ -7,6 +7,21 @@ sidebar:
   nav: "docs"
 ---
 
+## Solid Design Principles
+
+...
+
+## Creational Patterns
+
+### Builder
+
+> When piecewise object construction is complicated, provide an API for doing it succinctly.
+
+This design pattern aims to solve the problem of labourious object creation that can result in monstrous constructors or subtype breeding.
+#### Example
+
+
+
 ### Strategy
 
 > Separates an algorithm into its 'skeleton' and concrete implementation steps, which can be varied at run-time.

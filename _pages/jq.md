@@ -53,4 +53,3 @@ First, we access the fruits property (`.fruits`), which returns all the children
 "yellow"
 "green"
 ```
-

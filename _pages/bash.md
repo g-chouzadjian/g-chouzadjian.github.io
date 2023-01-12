@@ -313,7 +313,7 @@ Standard output and Standard Error are displayed to the screen.
 
 *example*
 
-`< filename xargs` will redirect the contents of `filename` to the stdin of `xargs`
+`< filename xargs` will redirect the contents of `filename` to the stdin of `xargs`.
 
 ## Pipelining
 

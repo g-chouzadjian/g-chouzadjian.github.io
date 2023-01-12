@@ -305,6 +305,16 @@ useradd  -c "${COMMENT}"
 
 Standard output and Standard Error are displayed to the screen.
 
+## Redirection
+
+...
+
+`<` : stdin
+
+*example*
+
+`< filename xargs` will redirect the contents of `filename` to the stdin of `xargs`
+
 ## Pipelining
 
 When you use pipes in commands, you're saying you want the stdout of one command to be the stdin to the next command. If the first command has an error on  output, that does not get sent to the stdoutput, it goes to  stderr  and does not get fed to the next command.

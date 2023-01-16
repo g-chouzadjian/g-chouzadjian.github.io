@@ -1,13 +1,11 @@
 ---
-title: "sed"
+title: "Sed"
 permalink: /bash/sed/
 excerpt: "sed"
 toc: true
 sidebar:
   nav: "docs"
 ---
-
-## Sed
 
 > **S**tream **ed**itor
 

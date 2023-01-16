@@ -17,6 +17,8 @@ docs:
         url: /bash/tips/
       - title: "jq"
         url: /bash/jq/
+      - title: "Sed"
+        url: /bash/sed/
   - title: Golang
     children:
       - title: "Basics"

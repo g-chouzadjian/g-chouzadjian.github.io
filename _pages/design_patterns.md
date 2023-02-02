@@ -80,7 +80,7 @@ func NewHtmlBuilder(rootName string) *HtmlBuilder {
 // Utility method if we prefer to only interact with the
 // Builder and not return the HtmlElement object to the client.
 func (b *HtmlBuilder) String() string {
-	return b.root.String()
+    return b.root.String()
 }
 
 func (b *HtmlBuilder) AddChild(childName, childText string) {

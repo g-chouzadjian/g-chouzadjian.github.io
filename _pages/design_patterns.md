@@ -18,10 +18,93 @@ sidebar:
 > When piecewise object construction is complicated, provide an API for doing it succinctly.
 
 This design pattern aims to solve the problem of labourious object creation that can result in monstrous constructors or subtype breeding.
+
 #### Example
 
+Imagine you're writing a web server and you want to build up strings of html from ordinary text elements. You could do something like...
 
+```golang
+// creating an unordered list
+func main() {
+	sb := strings.Builder{}
+	words := []string{"hello", "world"}
+	sb.WriteString("<ul>")
+	for _, v := range words {
+		sb.WriteString("<li>")
+		sb.WriteString(v)
+		sb.WriteString("</li>")
+	}
+	sb.WriteString("</ul")
+	fmt.Println(sb.String())
+}
+```
 
+However this is pretty laborious and not very flexible should you want to output a paragraph or a heading etc.
+
+We want to make it convenient for the client to build HTML elements instead of having to create them piecewise like above.
+
+Luckily, we can represent the whole HTML construct as a tree data structure. We can then delegate the building of said data structure to a Builder component that the client can interact with.
+
+We start with defining the HTML element...
+
+```golang
+// htmlElement.go: Product
+type HtmlElement struct {
+	name, text 	string 		// name is the tag, text is what's in between
+	element 	HtmlElement // html elements can also include other html elements
+}
+
+// We also want to be able to print the HtmlElement and set the correct 
+// indentation etc. We won't show the internals of this because it's not really 
+// relevant for the pattern but just for completeness sake...
+
+func (e *HtmlElement) String() string {
+	...
+}
+```
+
+Now want to create the Builder...
+
+```golang
+// htmlBuilder: Concrete builder
+type HtmlBuilder struct {
+	root HtmlElement // root element is all that's required to return the whole data structure
+	rootName string // required to reset the builder (an html element always needs a root)
+}
+
+func NewHtmlBuilder(rootName string) *HtmlBuilder {
+	return &HtmlBuilder{rootName, 
+		HtmlElement{rootName, "", []HtmlElement{}}}
+}
+
+// Utility method if we prefer to only interact with the
+// Builder and not return the HtmlElement object to the client.
+func (b *HtmlBuilder) String() string {
+	return b.root.String()
+}
+
+func (b *HtmlBuilder) AddChild(childName, childText string) {
+	e := HtmlElement{childName, childText,
+	  []HtmlElement{}}
+	b.root.elements = append(b.root.elements, e)
+}
+```
+
+Refactoring the client code...
+
+```golang
+// creating an unordered list
+func main() {
+	b := NewHtmlBuilder("ul")
+	b.AddChild("li", "hello")
+	b.AddChild("li", "world")
+	fmt.Println(b.String())
+}
+```
+
+As we can see, we have now successfully decoupled the building of the Html product from the client code. The client only has to care about the utlity calls and not the particulars of Html creation.
+
+...
 ### Strategy
 
 > Separates an algorithm into its 'skeleton' and concrete implementation steps, which can be varied at run-time.

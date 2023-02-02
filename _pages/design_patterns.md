@@ -26,16 +26,16 @@ Imagine you're writing a web server and you want to build up strings of html fro
 ```golang
 // creating an unordered list
 func main() {
-	sb := strings.Builder{}
-	words := []string{"hello", "world"}
-	sb.WriteString("<ul>")
-	for _, v := range words {
-		sb.WriteString("<li>")
-		sb.WriteString(v)
-		sb.WriteString("</li>")
-	}
-	sb.WriteString("</ul")
-	fmt.Println(sb.String())
+    sb := strings.Builder{}
+    words := []string{"hello", "world"}
+    sb.WriteString("<ul>")
+    for _, v := range words {
+    	sb.WriteString("<li>")
+    	sb.WriteString(v)
+    	sb.WriteString("</li>")
+    }
+    sb.WriteString("</ul")
+    fmt.Println(sb.String())
 }
 ```
 

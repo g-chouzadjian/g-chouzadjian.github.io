@@ -50,8 +50,8 @@ We start with defining the HTML element...
 ```golang
 // htmlElement.go: Product
 type HtmlElement struct {
-	name, text 	string 		// name is the tag, text is what's in between
-	element 	HtmlElement // html elements can also include other html elements
+    name, text 	string 	    // name is the tag, text is what's in between
+    element     HtmlElement // html elements can also include other html elements
 }
 
 // We also want to be able to print the HtmlElement and set the correct 
@@ -59,7 +59,7 @@ type HtmlElement struct {
 // relevant for the pattern but just for completeness sake...
 
 func (e *HtmlElement) String() string {
-	...
+    ...
 }
 ```
 
@@ -68,13 +68,13 @@ Now want to create the Builder...
 ```golang
 // htmlBuilder: Concrete builder
 type HtmlBuilder struct {
-	root HtmlElement // root element is all that's required to return the whole data structure
-	rootName string // required to reset the builder (an html element always needs a root)
+    root HtmlElement // root element is all that's required to return the whole data structure
+    rootName string // required to reset the builder (an html element always needs a root)
 }
 
 func NewHtmlBuilder(rootName string) *HtmlBuilder {
-	return &HtmlBuilder{rootName, 
-		HtmlElement{rootName, "", []HtmlElement{}}}
+    return &HtmlBuilder{rootName, 
+        HtmlElement{rootName, "", []HtmlElement{}}}
 }
 
 // Utility method if we prefer to only interact with the
@@ -84,9 +84,9 @@ func (b *HtmlBuilder) String() string {
 }
 
 func (b *HtmlBuilder) AddChild(childName, childText string) {
-	e := HtmlElement{childName, childText,
-	  []HtmlElement{}}
-	b.root.elements = append(b.root.elements, e)
+    e := HtmlElement{childName, childText,
+      []HtmlElement{}}
+    b.root.elements = append(b.root.elements, e)
 }
 ```
 
@@ -95,10 +95,10 @@ Refactoring the client code...
 ```golang
 // creating an unordered list
 func main() {
-	b := NewHtmlBuilder("ul")
-	b.AddChild("li", "hello")
-	b.AddChild("li", "world")
-	fmt.Println(b.String())
+    b := NewHtmlBuilder("ul")
+    b.AddChild("li", "hello")
+    b.AddChild("li", "world")
+    fmt.Println(b.String())
 }
 ```
 

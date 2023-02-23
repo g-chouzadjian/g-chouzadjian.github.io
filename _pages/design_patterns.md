@@ -63,7 +63,7 @@ func (e *HtmlElement) String() string {
 }
 ```
 
-Now want to create the Builder...
+Now to to create the Builder..
 
 ```golang
 // htmlBuilder: Concrete builder
@@ -104,7 +104,34 @@ func main() {
 
 As we can see, we have now successfully decoupled the building of the Html product from the client code. The client only has to care about the utlity calls and not the particulars of Html creation.
 
-...
+#### Fluent Interfaces
+
+A fluent interface allows you to chain calls together. This makes sense in the context of "building" becuase oftentimes you want to call several methods on the same receiver. We can do this simply by returning the receveiver in the method call..
+
+```golang
+func (b *HtmlBuilder) AddChildFluent(childName, childText string) *HtmlBuilder {
+    e := HtmlElement{childName, childText,
+      []HtmlElement{}}
+    b.root.elements = append(b.root.elements, e)
+}
+```
+
+The client code then becomes..
+
+```golang
+// creating an unordered list
+func main() {
+    b := NewHtmlBuilder("ul")
+    b.AddChild("li", "hello").
+	  AddChild("li", "world")
+    fmt.Println(b.String())
+}
+```
+
+It's not so obvious from the above example but it makes more sense in the context of builder facets.
+
+#### Builder Facets
+
 ### Strategy
 
 > Separates an algorithm into its 'skeleton' and concrete implementation steps, which can be varied at run-time.

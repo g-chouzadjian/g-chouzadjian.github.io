@@ -106,7 +106,7 @@ As we can see, we have now successfully decoupled the building of the Html produ
 
 #### Fluent Interfaces
 
-A fluent interface allows you to chain calls together. This makes sense in the context of "building" becuase oftentimes you want to call several methods on the same receiver. We can do this simply by returning the receveiver in the method call..
+A fluent interface allows you to chain calls together. This makes sense in the context of "building" because oftentimes you want to call several methods on the same receiver. We can do this simply by returning the receiver in the method call..
 
 ```golang
 func (b *HtmlBuilder) AddChildFluent(childName, childText string) *HtmlBuilder {
@@ -131,6 +131,133 @@ func main() {
 It's not so obvious from the above example but it makes more sense in the context of builder facets.
 
 #### Builder Facets
+
+> *Note on aggregation vs composition* 
+> Aggregation is an important relationship when talking about builder facets so let's remind ourselves what it is. Aggregation is a "uses" realtionship. Object A uses Object B, however Object B can still exist meaningully without object A. This differs subtly from compostion which is an "owns" relationship. If Object A "owns" Object B, then once it's deleted, so is  Object B.
+
+The faceted builder can be used when you have a very complicated object that requires multiple individual builders to create. The pattern essentially provides a facade over these individual builders so they can be accessed/coordinated in a convenient way.
+
+Imagine we have the following Person type..
+
+```golang
+type Person struct {
+	// address
+	StreetAddress, Postcode, City string
+
+	// job
+	CompanyName, Position string
+	AnnualIncome int
+}
+```
+
+Let's start with our "facade" which will be what the client interacts with directly `PersonBuilder`..
+
+```golang
+type PersonBuilder struct {
+	person *Person
+}
+
+func NewPersonBuilder() *PersonBuilder {
+	return &PersonBuilder{ &Person{} }
+}
+```
+
+Now let's create separate builders for each of the different aspects of the `Person` type..
+
+```golang
+type PersonAddressBuilder struct {}
+type PersonJobBuilder struct {}
+```
+
+We want the client not to necessarily know they're accessing underlying builders when they create a Person. That's the point of the facade. To do this we aggregate `PersonBuilder` in these other types.
+
+```golang
+type PersonAddressBuilder struct {
+	PersonBuilder
+}
+type PersonJobBuilder struct {
+	PersonBuilder
+}
+```
+
+Now let's create some utility methods so we can access the various builders from our PersonBuilder.
+
+```golang
+func  (b *PersonBuilder) Lives() *PersonAddressBuilder {
+	// because PersonAddressBuilder aggregates PersonBuilder we need to provide
+	// the initialised object to our constructor.
+	return &PersonAddressBuilder{*b}
+}
+
+func  (b *PersonBuilder) Works() *PersonJobBuilder {
+	return &PersonJobBuilder{*b}
+}
+```
+
+The above means we can jump around between the various builders with ease.
+
+Let's add the actual builder methods now..
+
+```golang
+func (pab *PersonAddressBuilder) At(streetAddress string) *PersonAddressBuilder {
+	pab.person.StreetAddress = streetAddress
+	return pab
+}
+
+func (pab *PersonAddressBuilder) In(city string) *PersonAddressBuilder {
+	pab.person.City = city
+	return pab
+}
+
+func (pab *PersonAddressBuilder) WithPostcode(postcode string) *PersonAddressBuilder {
+	pab.person.Postcode = postcode
+	return pab
+}
+
+func (pjb *PersonJobBuilder) At(companyName string) *PersonJobBuilder {
+	pjb.person.CompanyName = companyName
+	return pjb
+}
+
+func (pjb *PersonJobBuilder) AsA(position string) *PersonJobBuilder {
+	pjb.person.Position = position
+	return pjb
+}
+
+func (pjb *PersonJobBuilder) Earning(annualIncome int) *PersonJobBuilder {
+	pjb.person.AnnualIncome = annualIncome
+	return pjb
+}
+```
+
+With the above methods we've effectively setup a tiny DSL (Domain Specific Language) for building up a person's information.
+
+Lastly we need to add some sort of `Build()` method so we can yield the constructed object.
+
+```golang
+func (b *PersonBuilder) Build() *Person {
+	return b.person
+}
+```
+
+Now let's actually use all these builders to create a person..
+
+```golang
+func main() {
+  pb := NewPersonBuilder()
+  pb.
+    Lives().
+    At("123 London Road").
+    In("London").
+    WithPostcode("SW12BC").
+  Works().
+    At("Fabrikam").
+    AsA("Programmer").
+    Earning(123000)
+  person := pb.Build()
+  fmt.Println(person)
+}
+```
 
 ### Strategy
 

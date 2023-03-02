@@ -132,9 +132,6 @@ It's not so obvious from the above example but it makes more sense in the contex
 
 #### Builder Facets
 
-> *Note on aggregation vs composition* 
-> Aggregation is an important relationship when talking about builder facets so let's remind ourselves what it is. Aggregation is a "uses" realtionship. Object A uses Object B, however Object B can still exist meaningully without object A. This differs subtly from compostion which is an "owns" relationship. If Object A "owns" Object B, then once it's deleted, so is  Object B.
-
 The faceted builder can be used when you have a very complicated object that requires multiple individual builders to create. The pattern essentially provides a facade over these individual builders so they can be accessed/coordinated in a convenient way.
 
 Imagine we have the following Person type..
@@ -170,6 +167,8 @@ type PersonJobBuilder struct {}
 ```
 
 We want the client not to necessarily know they're accessing underlying builders when they create a Person. That's the point of the facade. To do this we aggregate `PersonBuilder` in these other types.
+
+> Aggregation is a "uses" realtionship. Object A uses Object B, however Object B can still exist meaningully without object A. This differs subtly from compostion which is an "owns" relationship. If Object A "owns" Object B, then once it's deleted, so is  Object B.
 
 ```golang
 type PersonAddressBuilder struct {
@@ -258,6 +257,100 @@ func main() {
   fmt.Println(person)
 }
 ```
+
+#### Builder Parameter
+
+> How do you force the client to use your builders?
+
+When you have an API that performs an action on a built object, how do you ensure the client has used your builder to create said object?
+
+We can do this using a **builder parameter**.
+
+As an example, let's say you're building an email API that exposes a `SendEmail(email email)` function. How do you ensure the client uses your `EmailBuilder` to correctly build the email object before passing it to the function? Let's start with..
+
+```golang
+package email
+
+// low-level object is exposed
+type Email struct {
+	from, to, subject, body string
+}
+
+// the builder you want the client to use
+type EmailBuilder struct {
+	email Email
+}
+
+// utility method that performs proper validation
+func (b *EmailBuilder) From(from string) *EmailBuilder {
+	// example validation
+	if !strings.Contains(from, "@") {
+		panic("email shjould contain @")
+	}
+	b.email.from = from
+	return b
+}
+
+// ... and so on for other utility methods
+
+// public API for the client to use
+func SendEmail(email Email) {
+	// ...
+}
+```
+
+A client using the above package has to interact with an email object directly in order to pass it to the `SendEmail()` function. They could of course use the provided builder but there's nothing stopping them from initialising an `Email` object directly.
+
+Let's fix this by implementing the builder parameter.
+
+```golang
+package email
+
+// let's hide the low-level object so it doesn't bleed out of the pkg
+type email struct {
+	from, to, subject, body string
+}
+
+// expose the builder to the client
+type EmailBuilder struct {
+	email email
+}
+
+// ... utility methods
+
+// hide the underlying function that interacts with the private object
+func sendMailImpl(email *email) {
+	// ... interaction with email object
+}
+
+// this is the builder parameter - essentially just a function that applies to your builder.
+type build func(*EmailBuilder)
+
+// public API that your client can interact with to send emails. The client must supply
+// a function that takes a pointer to an EmailBuilder as an argument.
+func SendEmail(action build) {
+	builder := EmailBuilder{}
+	action(&builder)
+	sendMailImpl(&builder.email)
+}
+```
+
+The client code becomes..
+
+```golang
+package main
+
+func main() {
+	SendEmail(func(b *EmailBuilder) {
+		b.From("foo@bar.com").
+		  To("bar@baz.com").
+		  Subject("foobar").
+		  Body("Hello, how are you")
+	})
+}
+```
+
+So the idea is that the client **must** provide a function that works on the EmailBuilder to `SendEmail()`, thereby forcing them to initialise an email object correctly.
 
 ### Strategy
 

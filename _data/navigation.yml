@@ -3,8 +3,8 @@ main:
     url: /bash/basics/
   - title: "TDD"
     url: /TDD/
-  - title: "Golang"
-    url: /golang/basics/
+  - title: "Design Patterns"
+    url: /design/solid/
   - title: "Algorithms"
     url: /algo/bigo/
 
@@ -19,12 +19,12 @@ docs:
         url: /bash/jq/
       - title: "Sed"
         url: /bash/sed/
-  - title: Golang
+  - title: Design Patterns
     children:
-      - title: "Basics"
-        url: /golang/basics/
-      - title: "Design Patterns"
-        url: /golang/patterns/
+      - title: "Builder"
+        url: /design/builder/
+      - title: "Strategy"
+        url: /design/strategy/
   - title: Algorithms
     children:
       - title: "Big O"

@@ -23,6 +23,8 @@ docs:
     children:
       - title: "Builder"
         url: /design/builder/
+      - title: "Factory"
+        url: /design/factory/
       - title: "Strategy"
         url: /design/strategy/
   - title: Algorithms

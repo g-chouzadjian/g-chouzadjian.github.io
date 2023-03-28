@@ -31,3 +31,5 @@ docs:
     children:
       - title: "Big O"
         url: /algo/bigo/
+      - title: "Searching"
+        url: /algo/searching/

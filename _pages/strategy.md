@@ -7,8 +7,6 @@ sidebar:
   nav: "docs"
 ---
 
-## Strategy
-
 > Separates an algorithm into its 'skeleton' and concrete implementation steps, which can be varied at run-time.
 
 This pattern leverages interfaces to achieve subtype polymorphism and ultimately LSP (Liskov substitution principle).

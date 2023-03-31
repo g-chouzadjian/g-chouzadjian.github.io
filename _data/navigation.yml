@@ -27,6 +27,8 @@ docs:
         url: /design/factory/
       - title: "Strategy"
         url: /design/strategy/
+      - title: "Visitor"
+        url: /design/visitor/
   - title: Algorithms
     children:
       - title: "Big O"

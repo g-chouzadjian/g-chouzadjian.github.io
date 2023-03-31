@@ -19,19 +19,15 @@ sidebar:
 
 We want a way to represent numeric expressions i.e.
 
+`(1+2)+3`
+
 Let's define the following interface:
 
 ```golang
 type Expression interface {}
 ```
 
-If we break the following into it's constituent parts:
-
-```
-(1+2)+3
-```
-
-We see we either have a double-precision expression (the number itself), or we have a binary expression (two double-precision expressions on either side).
+If we break the above expression into it's constituent parts, we see we either have a double-precision expression (the number itself), or we have a binary expression (two double-precision expressions on either side).
 
 We can represent the example expression as these two constructs.
 

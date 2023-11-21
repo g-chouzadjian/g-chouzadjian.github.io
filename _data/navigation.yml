@@ -7,6 +7,8 @@ main:
     url: /design/solid/
   - title: "Algorithms"
     url: /algo/bigo/
+  - title: "Concurrency"
+    url: /concurrency/threads/
 
 docs:
   - title: Bash
@@ -35,3 +37,7 @@ docs:
         url: /algo/bigo/
       - title: "Searching"
         url: /algo/searching/
+  - title: Concurrency
+    children:
+      - title: "Threads"
+        url: /concurrency/threads/

@@ -37,3 +37,32 @@ sidebar:
 - Golang uses a hybrid mixture of kernel-level threads and green threads. It creates a kernel-level thread for each CPU that you have and then a number of green threads within. When a thread is waiting for IO, golang will swap it out but it is clever enough to know the other green threads which are not waiting for IO and shuffles them onto another kernel thread.
 
 - All of the above are implementation details and not needed to write multithreaded applications in golang as it is abstracted away from you.
+
+## Memory Sharing
+
+### Inter-Process Communication (IPC)
+
+#### Message Passing
+
+Two or more threads that are passing messages between each other.
+
+Analogy: Sending a letter to a friend.
+
+#### Shared Memory
+
+Sharing a common space in memory. One thread writes to a variable which the other thread can read.
+
+Analogy: Writing messages on a shared whiteboard.
+
+Benefits: easy and efficient
+
+To start a thread of execution in go:
+
+```golang
+func foobar() {
+  ...
+}
+// starts a thread of execution on the function foobar()
+go foobar()
+```
+

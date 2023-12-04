@@ -66,3 +66,10 @@ func foobar() {
 go foobar()
 ```
 
+## Thread Synchronization
+
+Two or more threads accessing shared memory can potentially result in what's called a race condition if the threads aren't synchronised. This produces inconsistent results.
+
+### Mutex
+
+A mutex is a lock that can be aquired by a thread when it needs to access shared memory. The mutex locks the memory while the thread holds it thereby guaranteeing access to one thread at a time.
